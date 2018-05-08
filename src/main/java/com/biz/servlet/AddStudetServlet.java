@@ -36,14 +36,14 @@ public class AddStudetServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//设置请求字符集编�?
+		//设置请求字符集编
 		request.setCharacterEncoding("UTF-8");
 		//接收客户端的参数
 		//将String型转换为int
 		String id = request.getParameter("id");
 		
 		String name = request.getParameter("name");
-		//将时间类型进行转�?
+		
 		String birthday = request.getParameter("birthday");
 		
 		String description = request.getParameter("description");
@@ -51,7 +51,7 @@ public class AddStudetServlet extends HttpServlet {
 		//将avgscore变为score
 		String avgscore = request.getParameter("avgscore");
 		
-		//将获取的客户端数据进行封�?
+		//将获取的客户端数据进行封装
 		Student student = new Student();
 		student.setId(id);
 		student.setName(name);
@@ -67,7 +67,7 @@ public class AddStudetServlet extends HttpServlet {
 		List<Student> selectStudent = studentService.selectStudent(student);
 		 
 		 
-		//响应字符集编�?
+		//响应字符集编�?
 		response.setCharacterEncoding("UTF-8");
 		//httpsession使用
 		HttpSession httpSession = request.getSession();

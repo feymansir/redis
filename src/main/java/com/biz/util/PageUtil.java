@@ -15,7 +15,7 @@ public class PageUtil {
 	
 	/**
 	 * 
-	 * 分页
+	 * 根据页码查询学生
 	 * */
 	public static List<Student> queryByPage(int pageNum){
 		
@@ -24,30 +24,25 @@ public class PageUtil {
 		Set<Tuple> set= jedis.zrevrangeWithScores("student", (pageNum-1)*10, pageNum*10-1);
 		if(set!=null&&set.size()>0) {
 			for(Tuple t:set) {
-				double score=t.getScore();
-				int avgscore=(int)score;
-				String value=t.getElement();
-				
-				String[] values=value.split(",");
-				
-				
-				Student student=new Student();
-				student.setAvgscore(avgscore);
-				student.setId(values[0]);
-				student.setName(values[1]);
-				student.setBirthday(values[2]);
-				student.setDescription(values[3]);
-				list.add(student);
-			}
+				 double score=t.getScore();
+				   String member= t.getElement();
+				   Student student2 = Util.spiltResult(member);
+				   list.add(student2);
+			   }
+			   for(Student student1 : list)
+			   {
+				   System.out.println(student1);
+				   
+			   }
+			  
 		}
-		
-		
 		return list;
+	
 	}
 	
 	/**
 	 * 
-	 * 获取总页�?
+	 * 获取总页数
 	 * */
 	public static long getPageNum() {
 		Jedis jedis=RedisUtil.getJedis();

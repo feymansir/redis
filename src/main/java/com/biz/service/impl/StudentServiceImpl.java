@@ -48,10 +48,10 @@ public class StudentServiceImpl implements StudentService {
 		jedis = RedisUtil.getJedis();
 		System.out.println("连接成功");
 		
-		//创建List来接�?
+		//创建List来接受
 		List<Student> list = new ArrayList<Student>();
 		
-		//遍历redis中的set集合，zrevrange返回有序集合中指定分数区域成�?
+		//遍历redis中的set集合，zrevrange返回有序集合中指定分数区域
 		Set<String> set = jedis.zrevrange("student", 0, -1);
 		int i = 0;
 		for(Iterator iterator = set.iterator();iterator.hasNext();i++){
@@ -79,6 +79,32 @@ public class StudentServiceImpl implements StudentService {
 		jedis=RedisUtil.getJedis();
 		 jedis.zrem("student", member);
 		
+	}
+	
+	/**
+	 * 
+	 * 根据页数查询学生
+	 * */
+	public List<Student> queryByPage(int pageNum) {
+		
+		 //建立list集合
+		   List<Student> list = new ArrayList<Student>();
+		   jedis = RedisUtil.getJedis();
+		   Set<Tuple> set = jedis.zrevrangeWithScores("student", (pageNum-1)*10, pageNum*10-1);
+		   int i=0;
+
+		   for(Tuple t:set){
+			   double score=t.getScore();
+			   String member= t.getElement();
+			   Student student2 = Util.spiltResult(member);
+			   list.add(student2);
+		   }
+		   for(Student student1 : list)
+		   {
+			   System.out.println(student1);
+			   
+		   }
+		   return list;
 	}
 		
 	

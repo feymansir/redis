@@ -8,7 +8,7 @@
 </head>
 <body>
 	 <form action="/redis/AddStudetServlet" method="post">
-                    <div class="form-group" align="center">
+                    <div class="form-group" align="center" >
                        
                         <input type="text" name="id" placeholder="修改学号"><br/>
                         
@@ -17,9 +17,10 @@
                         <input type="text" name="description" placeholder="修改备注"><br/>
                        
                         <input type="text" name="avgscore" placeholder="修改平均分"><br/>
+                        <button type="submit" value="提交">提交</button>
                     </div>
              
-                    <button type="submit" value="提交">提交</button>
+                    
                 </form>
 </body>
 </html>

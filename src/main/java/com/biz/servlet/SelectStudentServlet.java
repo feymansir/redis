@@ -25,23 +25,32 @@ public class SelectStudentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取pageNum参数
-		String pageNum1 = request.getParameter("pageNum");
-		System.out.println(pageNum1);
+		String pageNum = request.getParameter("pageNum");
+		System.out.println(pageNum);
 		//判断当前页码是否为空
-		int pageNum = 1;
-		if(pageNum1 != null && !pageNum1.trim().equals("")){
-			pageNum = Integer.parseInt(pageNum1);
+		int pageNum1 = 1;
+		if(pageNum != null && !pageNum.trim().equals("")){
+			pageNum1 = Integer.parseInt(pageNum);
 		}
-		List<Student> students = PageUtil.queryByPage(pageNum);
-		//获得当前�?大页码数
-		long maxPageNum = PageUtil.getPageNum();
 		
+		//调用业务方法
+		//调用服务类
+		StudentService studentService  = new StudentServiceImpl();
+		List<Student>  list = studentService.queryByPage(pageNum1);
+		
+		//获得当前大页码数
+		long maxPageNum = PageUtil.getPageNum();
 		//获得页数
-			request.setAttribute("current",pageNum);//当前�?
+			request.setAttribute("current",pageNum1);//当前页码
 			System.out.println(pageNum);
-			request.setAttribute("selectStudent", students);//集合
-			request.setAttribute("maxPageNum", maxPageNum);//�?大页
+			request.setAttribute("selectStudent", list);//集合
+			request.setAttribute("maxPageNum", maxPageNum);//最大大页
 			System.out.println(maxPageNum);
+		//重新再查询
+			/*Student student = new Student();
+			List<Student> selectStudent1 = studentService.selectStudent(student);
+			request.setAttribute("reSelect", selectStudent1);*/
+			
 			//request.setAttribute("selectStudent", students);
 			//request.getRequestDispatcher("student.jsp").forward(request, response);
 			

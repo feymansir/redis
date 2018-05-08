@@ -7,6 +7,6 @@
 <title>INDEX</title>
 </head>
 <body>
-	<a href="SelectStudentServlet">点击进入</a>
+	<div align="center"><a href="SelectStudentServlet">点击进入</a></div>
 </body>
 </html>

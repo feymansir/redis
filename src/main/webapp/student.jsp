@@ -50,9 +50,7 @@ $(document).ready(function(){
 		if(currPage>=maxPage||currPage==null){
 			alert("已经最后一页");
 		}else{
-			alert(currPage);
 			currPage++;
-			alert(currPage);
 			/* window.location.href="/SelectStudentServlet?pageNum="+currPage;
  */			$("#after").attr("href","SelectStudentServlet?pageNum="+currPage);
 		}
@@ -60,9 +58,27 @@ $(document).ready(function(){
 	
 	$("#choose").click(function(){
 		var mychoose = document.getElementById("input").value;
-		alert(mychoose);
+	if(mychoose>=1||mychoose<=maxpage){
+			
+			$("#choose").attr("href","SelectStudentServlet?pageNum="+mychoose);
+		}
 	});
 });
+
+$("#last").click(function(){
+	
+	var currPage=$("#currPage").val();
+	//最大页数
+	var lastPage=$("#sumPage").val();
+	if(currPage==lastPage){
+		//当currPage==lastPage就到了尾页
+		alert("这是尾页");
+		return;
+	}else{
+		$("#last").attr("href","SelectStudentServlet?pageNum="+lastPage);
+	}
+});
+
 </script>
 </head>
 <body>		
@@ -77,16 +93,17 @@ $(document).ready(function(){
 				            <td >birthday</td>
 				            <td >description</td>
 				            <td >avgscore</td>
-				            <td><input type="button" value="添加" onclick="window.location.href='addStudent.jsp'" /></td>
-				            <td><input type="submit" value="修改" /></td>
-				            <td><a href="#">删除</a></td>
+				            <td>添加功能</td>
+				            <td>修改功能</td> 
+				            <td>删除功能</td>
 				        </tr>
 				      
 
 		<%
-			List<Student> list = (List<Student>)session.getAttribute("selectStudent");
+			List<Student> list = (List<Student>)request.getAttribute("selectStudent");
 			Integer currentPage =(Integer)request.getAttribute("current");
 			Long maxPage =(Long) request.getAttribute("maxPageNum");
+			
 			
 			//判断是否为空
 			if(list != null){
@@ -118,7 +135,7 @@ $(document).ready(function(){
 				 			<td ><a id="before" href="">上一页</a>&nbsp;</td>
 				 			<td ><a id="after" href="">下一页</a>&nbsp;</td>
 				 			<td ><a id="last" href="">尾页</a>&nbsp;</td>
-				        <td><a href="" id="last">尾页</a></td>
+				        <td>凑个内容</td>
   						<td>
   						总页数：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="sumPage" readonly value="<%=maxPage %>"/></br>
   						当前页数：<input type="text" id="currPage"  readonly="value" value="<%=currentPage %>"/>

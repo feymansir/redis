@@ -16,6 +16,8 @@ public interface StudentService {
 	public List<Student> selectStudent(Student student);
 	//删除学生
 	public void deleteStudent(String member);
+	//根据页数查询学生
+	public List<Student> queryByPage(int pageNum);
 	
 	
 }
